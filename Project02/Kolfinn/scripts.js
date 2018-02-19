@@ -23,7 +23,7 @@ function won(xWon)
     }
     else
     {
-        var oPoints = document.getElementById('oPoints').value|0;
+        var oPoints = document.getElementById('oPoints').value|1;
         var result = oPoints + 1;
         document.getElementById('oPoints').value = result;
         document.getElementById('oPoints').innerHTML = result;
@@ -31,10 +31,7 @@ function won(xWon)
 }
 var button = document.getElementById("reset");
 
-button.addEventListener('click', resetBoard(), resetScore())
-{
-    
-}
+button.addEventListener('click', resetScore);
 
 function resetScore()
 {
