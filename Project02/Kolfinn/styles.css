@@ -1,0 +1,24 @@
+h1{
+    font-family: 'Bevan';
+    font-size: 80px;
+    font-style: initial;
+    text-align: center;
+    color:purple;
+}
+.x{
+    text-align: center;
+    color: purple;
+}
+.o{
+    text-align: center;
+    color: red;
+}
+table{
+    border-style: solid;
+    border-color: purple;
+    font-size: larger;
+}
+#button{
+    display: flex;
+    justify-content: center;
+}
