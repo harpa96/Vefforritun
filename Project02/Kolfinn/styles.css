@@ -5,20 +5,49 @@ h1{
     text-align: center;
     color:purple;
 }
-.x{
+h2{
     text-align: center;
+}
+.x{
     color: purple;
 }
 .o{
-    text-align: center;
     color: red;
 }
-table{
+#table{
     border-style: solid;
     border-color: purple;
     font-size: larger;
+    position: absolute;
+    top: 46%;
+    margin-left: 5%;
+}
+#tandb{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#ttt{
+    border-collapse: collapse;
+    border-style: hidden;
 }
 #button{
     display: flex;
     justify-content: center;
+}
+#tr > td {
+    border: 3px solid black;
+    width: 60px;
+    height: 60px;
+}
+.column {
+    float: left;
+}
+.left {
+  width: 10%;
+}
+.right {
+  width: 90%;
 }
