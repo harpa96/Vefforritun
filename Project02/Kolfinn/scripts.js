@@ -23,7 +23,7 @@ function won(xWon)
     }
     else
     {
-        var oPoints = document.getElementById('oPoints').value|0;
+        var oPoints = document.getElementById('oPoints').value|1;
         var result = oPoints + 1;
         document.getElementById('oPoints').value = result;
         document.getElementById('oPoints').innerHTML = result;
@@ -31,19 +31,14 @@ function won(xWon)
 }
 var button = document.getElementById("reset");
 
-button.addEventListener('click', resetBoard(), resetScore())
-{
-    
-}
+button.addEventListener('click', reset);
 
-function resetScore()
+function reset()
 {
     document.getElementById('xPoints').value = 0;
     document.getElementById('xPoints').innerHTML = 0;
     document.getElementById('oPoints').value = 0;
     document.getElementById('oPoints').innerHTML = 0;
-}
-function resetBoard()
-{
-    
+
+    //insert reset board instructions
 }
