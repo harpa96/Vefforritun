@@ -1,38 +1,42 @@
 var whosTurn = document.getElementById('turn');
 var O = "O, it's your turn!"
 var X = "X, it's your turn!"
+var lastTurnX = false;
 
 whosTurn.addEventListener('click', function(){
     whosTurn.classList.toggle('o');
-    if(document.getElementById('turn').textContent !== O){
+    if(lastTurnX === true){
         document.getElementById('turn').textContent = O;
-        document.getElementById('turn').value = 1;
+        lastTurnX = false;
     }
     else{
         document.getElementById('turn').textContent = X;
-        document.getElementById('turn').value = 0;
+        lastTurnX = true;
     }
 });
 
-function won(xWon, draw)
+function points(Won, draw)
 {
-    if(xWon === true)
+    if(Won === true)
     {
-        var xPoints = document.getElementById('xPoints').value|0;
-        var result = xPoints + 1;
-        document.getElementById('xPoints').value = result;
-        document.getElementById('xPoints').innerHTML = result;
-    }
-    else if(draw === true)
-    {
-        //nothing happens
-    }
-    else
-    {
+        if(lastTurnX === true)
+        {
+            var xPoints = document.getElementById('xPoints').value|0;
+            var result = xPoints + 1;
+            document.getElementById('xPoints').value = result;
+            document.getElementById('xPoints').innerHTML = result;
+        }
+        else
+        {
         var oPoints = document.getElementById('oPoints').value|1;
         var result = oPoints + 1;
         document.getElementById('oPoints').value = result;
         document.getElementById('oPoints').innerHTML = result;
+        }
+    }
+    else
+    {
+        //nothing happens
     }
 }
 var button = document.getElementById("reset");
@@ -46,7 +50,7 @@ function reset()
     document.getElementById('oPoints').value = 0;
     document.getElementById('oPoints').innerHTML = 0;
 
-    //insert reset board instructions
+    resetBoard;
 }
 $("#table tr td").click(function() {
     if ($(this).text()=="") {
@@ -70,7 +74,7 @@ var s8 = document.getElementById('8').innerText;
 var s9 = document.getElementById('9').innerText;
 var xWon = false;
 var oWon = false;
-var lastTurn = document.getElementById('turn').value;
+
 var won = false;
 var turnCount = 0;
 
@@ -78,7 +82,7 @@ function won()
 {
     if(checkRows == true || checkColumns == true || checkDiagonal == true)
     {
-        return lastTurn;
+        return lastTurnX;
     }
     else if(turnCount === 9)
     {
@@ -94,14 +98,14 @@ function checkRows()
 {
     if((s1 === s2 && s2 === s3) || (s4 === s5 && s5 === s6) || (s7 === s8 && s8 === s9))
     {
-        if(lastTurn === 1)
+        if(lastTurnX === true)
         {
             xWon = true;
-            return xWon
+            return xWon;
         }
         else{
             oWon = true;
-            return oWon
+            return oWon;
         }
     }
     else
@@ -113,14 +117,14 @@ function checkColumns()
 {
     if((s1 === s4 && s4 === s7) || (s2 === s5 && s5 === s8) || (s3 === s6 && s6 === s9))
     {
-        if(lastTurn === 1)
+        if(lastTurnX === true)
         {
             xWon = true;
-            return xWon
+            return xWon;
         }
         else{
             oWon = true;
-            return oWon
+            return oWon;
         }
     }
     else
@@ -130,20 +134,30 @@ function checkColumns()
 }
 function checkDiagonal()
 {
-    if((s1 === s5 && s5 === s9) || (s3 === s5 && s5 === s7)))
+    if((s1 === s5 && s5 === s9) || (s3 === s5 && s5 === s7))
     {
-        if(lastTurn === 1)
+        if(lastTurnX === true)
         {
             xWon = true;
-            return xWon
+            return xWon;
         }
         else{
             oWon = true;
-            return oWon
+            return oWon;
         }
     }
     else
     {
         return false;
+    }
+}
+
+function resetBoard()
+{
+    var square;
+    for(i = 7, i <= 15, i++)
+    {
+        square = document.getElementsByTagName('table')[i];
+        square.getElementsByTagName('td')[i].innerHTML = "";
     }
 }
