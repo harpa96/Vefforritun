@@ -58,39 +58,43 @@ table.addEventListener("click", function(e) {
                 e.target.textContent = 'X';
             }
         
-            won;
-
             turnCount++;
+            won();
 
-            if(turnCount === 9 && win === false)
+            if(draw === true)
             {
-                resetBoard;
+                resetBoard();
             }
             else if(win === false)
             {
-                if(lastTurn === 'X'){
-                    whosTurn.classList.toggle('o');
-                    document.getElementById('turn').textContent = X;
-                    lastTurn = 'O';
-                }
-                else{
-                    whosTurn.classList.toggle('o');
-                    document.getElementById('turn').textContent = O;
-                    lastTurn = 'X';
-                }
+                whosTurn();
             }
             else
             {
-                points;
-                resetBoard;
+                points();
+                resetBoard();
                 win = false;
             }
             console.log(turnCount);
             console.log(lastTurn);
             console.log(win);
+            console.log(draw);
         }
     }
 });
+function whosTurn()
+{
+    if(lastTurn === 'X'){
+        whosTurn.classList.toggle('o');
+        document.getElementById('turn').textContent = X;
+        lastTurn = 'O';
+    }
+    else{
+        whosTurn.classList.toggle('o');
+        document.getElementById('turn').textContent = O;
+        lastTurn = 'X';
+    }
+}
 
 var s1;
 var s2;
@@ -118,7 +122,7 @@ function checkSqaure()
 
 function won()
 {
-    var check = checkAll;
+    var check = checkAll();
     if(check === true)
     {
         win = true;
@@ -134,34 +138,43 @@ function won()
 }
 function checkAll()
 {
-    checkSqaure;
-    if(((s1 === s2 && s2 === s3) && s1 !== "") || ((s4 === s5 && s5 === s6) && s4 !== "") || ((s7 === s8 && s8 === s9) && s7 !== ""))
+    checkSqaure();
+    for(var i = 1; i <= 9; i+3)
+    {
+        var c1 = document.getElementsByTagName('td')[i].textContent;
+        var c2 = document.getElementsByTagName('td')[i+1].textContent;
+        var c3 = document.getElementsByTagName('td')[i+2].textContent;
+        if((c1 === c2 && c2 === c3) && (c2 === "X" || c2 === 'O'))
+        {
+            return true;
+        }
+        c2 = document.getElementsByTagName('td')[i+3].textContent;
+        c3 = document.getElementsByTagName('td')[i+6].textContent;
+        if((c1 === c2 && c2 === c3) && (c2 === "X" || c2 === 'O'))
+        {
+            return true;
+        }
+    }
+    if((s1 === s5 && s5 === s9) && (s5 === "X" || s5 === 'O') || (s3 === s5 && s5 === s7) && (s5 === 'X' || s5 === 'O'))
     {
         return true;
     }
-    else if(((s1 === s4 && s4 === s7) && s1 !== "") || ((s2 === s5 && s5 === s8) && s2 !== "") || ((s3 === s6 && s6 === s9) && s3 !== ""))
-    {
-        return true;
-    }
-    else if(((s1 === s5 && s5 === s9) || (s3 === s5 && s5 === s7)) && s5 !== "")
-    {
-        return true;
-    }
-    else
-    {
+    else{
         return false;
     }
 }
 
 function resetBoard()
 {
+    console.log("resetBoard");
     var square;
-    for(i = 1; i <= 9; i++)
+    for(var i = 1; i <= 9; i++)
     {
-        square = document.getElementsByTagName('table');
-        square.getElementsByTagName('td')[i].innerText = "";
+        document.getElementsByTagName('td')[i].textContent = "";
     }
     lastTurn = 'O';
-    whosTurn;
+    whosTurn();
     turnCount = 0;
+    draw = false;
+    win = false;
 }
