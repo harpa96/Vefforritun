@@ -8,28 +8,21 @@ var turnCount = 0;
 
 function points()
 {
-    if(win === true)
+    if(lastTurn !== 'X')
     {
-        if(lastTurn === 'X')
-        {
-            var xPoints = document.getElementById('xPoints').value|0;
-            var result = xPoints + 1;
-            document.getElementById('xPoints').value = result;
-            document.getElementById('xPoints').innerHTML = result;
-            alert("Player 'X' has won the game!");
-        }
-        else
-        {
-            var oPoints = document.getElementById('oPoints').value|1;
-            var result = oPoints + 1;
-            document.getElementById('oPoints').value = result;
-            document.getElementById('oPoints').innerHTML = result;
-            alert("Player 'O' has won the game!");
-        }
+        var xPoints = document.getElementById('xPoints').value|0;
+        var result = xPoints + 1;
+        document.getElementById('xPoints').value = result;
+        document.getElementById('xPoints').innerHTML = result;
+        alert("Player 'X' has won the game!");
     }
     else
     {
-        alert("It's a draw!");
+        var oPoints = document.getElementById('oPoints').value|1;
+        var result = oPoints + 1;
+        document.getElementById('oPoints').value = result;
+        document.getElementById('oPoints').innerHTML = result;
+        alert("Player 'O' has won the game!");
     }
 }
 var button = document.getElementById("reset");
@@ -43,7 +36,7 @@ function reset()
     document.getElementById('oPoints').value = 0;
     document.getElementById('oPoints').innerHTML = 0;
 
-    resetBoard;
+    resetBoard();
 }
 
 var table = document.getElementById("ttt");
@@ -63,11 +56,12 @@ table.addEventListener("click", function(e) {
 
             if(draw === true)
             {
+                alert("It's a draw!");
                 resetBoard();
             }
             else if(win === false)
             {
-                whosTurn();
+                turnText();
             }
             else
             {
@@ -75,14 +69,10 @@ table.addEventListener("click", function(e) {
                 resetBoard();
                 win = false;
             }
-            console.log(turnCount);
-            console.log(lastTurn);
-            console.log(win);
-            console.log(draw);
         }
     }
 });
-function whosTurn()
+function turnText()
 {
     if(lastTurn === 'X'){
         whosTurn.classList.toggle('o');
@@ -108,15 +98,15 @@ var s9;
 
 function checkSqaure()
 {
-    s1 = document.getElementById('1').nodeValue;
-    s2 = document.getElementById('2').nodeValue;
-    s3 = document.getElementById('3').nodeValue;
-    s4 = document.getElementById('4').nodeValue;
-    s5 = document.getElementById('5').nodeValue;
-    s6 = document.getElementById('6').nodeValue;
-    s7 = document.getElementById('7').nodeValue;
-    s8 = document.getElementById('8').nodeValue;
-    s9 = document.getElementById('9').nodeValue;
+    s1 = document.getElementsByTagName('td')[0].textContent;
+    s2 = document.getElementsByTagName('td')[1].textContent
+    s3 = document.getElementsByTagName('td')[2].textContent
+    s4 = document.getElementsByTagName('td')[3].textContent
+    s5 = document.getElementsByTagName('td')[4].textContent
+    s6 = document.getElementsByTagName('td')[5].textContent
+    s7 = document.getElementsByTagName('td')[6].textContent
+    s8 = document.getElementsByTagName('td')[7].textContent
+    s9 = document.getElementsByTagName('td')[8].textContent
 }
 
 
@@ -131,19 +121,17 @@ function won()
     {
         draw = true;
     }
-    else
-    {
-        //nothing
-    }
 }
 function checkAll()
 {
     checkSqaure();
-    for(var i = 1; i <= 9; i+3)
+    var c1, c2, c3;
+    var i;
+    for(i = 0; i < 6; i = i+3)
     {
-        var c1 = document.getElementsByTagName('td')[i].textContent;
-        var c2 = document.getElementsByTagName('td')[i+1].textContent;
-        var c3 = document.getElementsByTagName('td')[i+2].textContent;
+        c1 = document.getElementsByTagName('td')[i].textContent;
+        c2 = document.getElementsByTagName('td')[i+1].textContent;
+        c3 = document.getElementsByTagName('td')[i+2].textContent;
         if((c1 === c2 && c2 === c3) && (c2 === "X" || c2 === 'O'))
         {
             return true;
@@ -167,13 +155,17 @@ function checkAll()
 function resetBoard()
 {
     console.log("resetBoard");
+    console.log(lastTurn);
     var square;
-    for(var i = 1; i <= 9; i++)
+    for(i = 0; i < 9; i++)
     {
         document.getElementsByTagName('td')[i].textContent = "";
     }
-    lastTurn = 'O';
-    whosTurn();
+    if(lastTurn !== 'O' && turnCount > 0){
+        whosTurn.classList.toggle('o');
+        document.getElementById('turn').textContent = X;
+        lastTurn = 'O';
+    }
     turnCount = 0;
     draw = false;
     win = false;
