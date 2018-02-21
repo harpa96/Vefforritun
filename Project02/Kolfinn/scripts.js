@@ -3,18 +3,6 @@ var O = "O, it's your turn!"
 var X = "X, it's your turn!"
 var lastTurnX = false;
 
-whosTurn.addEventListener('click', function(){
-    whosTurn.classList.toggle('o');
-    if(lastTurnX === true){
-        document.getElementById('turn').textContent = O;
-        lastTurnX = false;
-    }
-    else{
-        document.getElementById('turn').textContent = X;
-        lastTurnX = true;
-    }
-});
-
 function points(Won, draw)
 {
     if(Won === true)
@@ -54,16 +42,33 @@ function reset()
 
     resetBoard;
 }
-$("#table tr td").click(function() {
-    if ($(this).text()=="") {
-      if (document.getElementById('turn').textContent === X) {
-        $(this).append("x");
+
+var table = document.getElementById("ttt");
+
+table.addEventListener("click", function(e) {
+  if (e.target && e.target.nodeName == "TD") {
+    if (e.target.textContent === "") {
+        if (lastTurnX === true) {
+          e.target.textContent = 'O';
+        }
+        else {
+          e.target.textContent = 'X';
+        }
       }
-      else {
-        $(this).append("O");
+      
+      whosTurn.classList.toggle('o');
+      if(lastTurnX === false){
+          document.getElementById('turn').textContent = O;
+          lastTurnX = true;
       }
-    }
-  });
+      else{
+          document.getElementById('turn').textContent = X;
+          lastTurnX = false;
+      }
+  }
+});
+
+
 
 var s1 = document.getElementById('1').innerText;
 var s2 = document.getElementById('2').innerText;
@@ -157,9 +162,11 @@ function checkDiagonal()
 function resetBoard()
 {
     var square;
-    for(i = 7; i <= 15; i++)
+    for(i = 1; i <= 9; i++)
     {
         square = document.getElementsByTagName('table')[i];
         square.getElementsByTagName('td')[i].innerHTML = "";
     }
+    lastTurnX = true;
+    whosTurn;
 }
