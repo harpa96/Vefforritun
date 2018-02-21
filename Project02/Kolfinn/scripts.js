@@ -18,7 +18,7 @@ function points()
     }
     else
     {
-        var oPoints = document.getElementById('oPoints').value|1;
+        var oPoints = document.getElementById('oPoints').value|0;
         var result = oPoints + 1;
         document.getElementById('oPoints').value = result;
         document.getElementById('oPoints').innerHTML = result;
@@ -127,7 +127,7 @@ function checkAll()
     checkSqaure();
     var c1, c2, c3;
     var i;
-    for(i = 0; i < 6; i = i+3)
+    for(i = 0; i < 7; i = i+3)
     {
         c1 = document.getElementsByTagName('td')[i].textContent;
         c2 = document.getElementsByTagName('td')[i+1].textContent;
@@ -136,6 +136,10 @@ function checkAll()
         {
             return true;
         }
+    }
+    for(i = 0; i < 4; i++)
+    {
+        c1 = document.getElementsByTagName('td')[i].textContent;
         c2 = document.getElementsByTagName('td')[i+3].textContent;
         c3 = document.getElementsByTagName('td')[i+6].textContent;
         if((c1 === c2 && c2 === c3) && (c2 === "X" || c2 === 'O'))
