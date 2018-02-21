@@ -1,13 +1,16 @@
 var whosTurn = document.getElementById('turn');
 var O = "O, it's your turn!"
 var X = "X, it's your turn!"
-var lastTurnX = false;
+var lastTurn = 'O';
+var win = false;
+var draw = false;
+var turnCount = 0;
 
-function points(Won, draw)
+function points()
 {
-    if(Won === true)
+    if(win === true)
     {
-        if(lastTurnX === true)
+        if(lastTurn === 'X')
         {
             var xPoints = document.getElementById('xPoints').value|0;
             var result = xPoints + 1;
@@ -46,112 +49,103 @@ function reset()
 var table = document.getElementById("ttt");
 
 table.addEventListener("click", function(e) {
-  if (e.target && e.target.nodeName == "TD") {
-    if (e.target.textContent === "") {
-        if (lastTurnX === true) {
-          e.target.textContent = 'O';
+    if (e.target && e.target.nodeName == "TD") {
+        if(e.target.textContent === "") {
+            if (lastTurn === 'X') {
+                e.target.textContent = 'O';
+            }
+            else {
+                e.target.textContent = 'X';
+            }
+        
+            won;
+
+            turnCount++;
+
+            if(turnCount === 9 && win === false)
+            {
+                resetBoard;
+            }
+            else if(win === false)
+            {
+                if(lastTurn === 'X'){
+                    whosTurn.classList.toggle('o');
+                    document.getElementById('turn').textContent = X;
+                    lastTurn = 'O';
+                }
+                else{
+                    whosTurn.classList.toggle('o');
+                    document.getElementById('turn').textContent = O;
+                    lastTurn = 'X';
+                }
+            }
+            else
+            {
+                points;
+                resetBoard;
+                win = false;
+            }
+            console.log(turnCount);
+            console.log(lastTurn);
+            console.log(win);
         }
-        else {
-          e.target.textContent = 'X';
-        }
-      }
-      
-      whosTurn.classList.toggle('o');
-      if(lastTurnX === false){
-          document.getElementById('turn').textContent = O;
-          lastTurnX = true;
-      }
-      else{
-          document.getElementById('turn').textContent = X;
-          lastTurnX = false;
-      }
-  }
+    }
 });
 
+var s1;
+var s2;
+var s3;
+var s4;
+var s5;
+var s6;
+var s7;
+var s8;
+var s9;
 
+function checkSqaure()
+{
+    s1 = document.getElementById('1').nodeValue;
+    s2 = document.getElementById('2').nodeValue;
+    s3 = document.getElementById('3').nodeValue;
+    s4 = document.getElementById('4').nodeValue;
+    s5 = document.getElementById('5').nodeValue;
+    s6 = document.getElementById('6').nodeValue;
+    s7 = document.getElementById('7').nodeValue;
+    s8 = document.getElementById('8').nodeValue;
+    s9 = document.getElementById('9').nodeValue;
+}
 
-var s1 = document.getElementById('1').innerText;
-var s2 = document.getElementById('2').innerText;
-var s3 = document.getElementById('3').innerText;
-var s4 = document.getElementById('4').innerText;
-var s5 = document.getElementById('5').innerText;
-var s6 = document.getElementById('6').innerText;
-var s7 = document.getElementById('7').innerText;
-var s8 = document.getElementById('8').innerText;
-var s9 = document.getElementById('9').innerText;
-var xWon = false;
-var oWon = false;
-
-var won = false;
-var turnCount = 0;
 
 function won()
 {
-    if(checkRows == true || checkColumns == true || checkDiagonal == true)
+    var check = checkAll;
+    if(check === true)
     {
-        return lastTurnX;
+        win = true;
     }
     else if(turnCount === 9)
     {
         draw = true;
-        return draw;
     }
     else
     {
-        return false;
+        //nothing
     }
 }
-function checkRows()
+function checkAll()
 {
-    if((s1 === s2 && s2 === s3) || (s4 === s5 && s5 === s6) || (s7 === s8 && s8 === s9))
+    checkSqaure;
+    if(((s1 === s2 && s2 === s3) && s1 !== "") || ((s4 === s5 && s5 === s6) && s4 !== "") || ((s7 === s8 && s8 === s9) && s7 !== ""))
     {
-        if(lastTurnX === true)
-        {
-            xWon = true;
-            return xWon;
-        }
-        else{
-            oWon = true;
-            return oWon;
-        }
+        return true;
     }
-    else
+    else if(((s1 === s4 && s4 === s7) && s1 !== "") || ((s2 === s5 && s5 === s8) && s2 !== "") || ((s3 === s6 && s6 === s9) && s3 !== ""))
     {
-        return false;
+        return true;
     }
-}
-function checkColumns()
-{
-    if((s1 === s4 && s4 === s7) || (s2 === s5 && s5 === s8) || (s3 === s6 && s6 === s9))
+    else if(((s1 === s5 && s5 === s9) || (s3 === s5 && s5 === s7)) && s5 !== "")
     {
-        if(lastTurnX === true)
-        {
-            xWon = true;
-            return xWon;
-        }
-        else{
-            oWon = true;
-            return oWon;
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
-function checkDiagonal()
-{
-    if((s1 === s5 && s5 === s9) || (s3 === s5 && s5 === s7))
-    {
-        if(lastTurnX === true)
-        {
-            xWon = true;
-            return xWon;
-        }
-        else{
-            oWon = true;
-            return oWon;
-        }
+        return true;
     }
     else
     {
@@ -164,9 +158,10 @@ function resetBoard()
     var square;
     for(i = 1; i <= 9; i++)
     {
-        square = document.getElementsByTagName('table')[i];
-        square.getElementsByTagName('td')[i].innerHTML = "";
+        square = document.getElementsByTagName('table');
+        square.getElementsByTagName('td')[i].innerText = "";
     }
-    lastTurnX = true;
+    lastTurn = 'O';
     whosTurn;
+    turnCount = 0;
 }
