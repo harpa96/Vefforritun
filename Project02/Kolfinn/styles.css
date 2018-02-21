@@ -1,7 +1,5 @@
 h1{
     font-family: 'Bevan';
-    font-size: 80px;
-    font-style: initial;
     text-align: center;
     color:purple;
 }
@@ -15,12 +13,9 @@ h2{
     color: red;
 }
 #table{
-    border-style: solid;
-    border-color: purple;
     font-size: larger;
-    position: absolute;
-    top: 46%;
-    margin-left: 5%;
+    max-width: 130px;
+    min-width: 130px;
 }
 #tandb{
     position: absolute;
@@ -42,12 +37,37 @@ h2{
     width: 60px;
     height: 60px;
 }
-.column {
-    float: left;
+
+@media screen and (min-width: 580px)
+{
+    h1{font-size: 80px; font-style: initial;}
+    .column { float: left; }
+    .left { width: 10%;}
+    .right { width: 90%;}
+    #table{
+        position: absolute;
+        top: 46%;
+        margin-left: 5%;
+        border-style: solid;
+        border-color: purple;}
 }
-.left {
-  width: 10%;
+@media screen and (max-width: 580px)
+{
+    .column{float: none;}
+    #table{
+        position: absolute;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+    }
 }
-.right {
-  width: 90%;
+@media screen and (max-height: 550px)
+{
+    h1{ display: none;}
+    #table{margin-top: 1cm;}
+}
+@media screen and (min-height: 550px) and (max-width: 580px)
+{
+    h1{ font-size: 40px;}
+    #table{margin-top: 1cm;}
 }

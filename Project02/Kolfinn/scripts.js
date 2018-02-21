@@ -157,7 +157,7 @@ function checkDiagonal()
 function resetBoard()
 {
     var square;
-    for(i = 7, i <= 15, i++)
+    for(i = 7; i <= 15; i++)
     {
         square = document.getElementsByTagName('table')[i];
         square.getElementsByTagName('td')[i].innerHTML = "";
