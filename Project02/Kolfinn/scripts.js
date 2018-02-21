@@ -25,18 +25,20 @@ function points(Won, draw)
             var result = xPoints + 1;
             document.getElementById('xPoints').value = result;
             document.getElementById('xPoints').innerHTML = result;
+            alert("Player 'X' has won the game!");
         }
         else
         {
-        var oPoints = document.getElementById('oPoints').value|1;
-        var result = oPoints + 1;
-        document.getElementById('oPoints').value = result;
-        document.getElementById('oPoints').innerHTML = result;
+            var oPoints = document.getElementById('oPoints').value|1;
+            var result = oPoints + 1;
+            document.getElementById('oPoints').value = result;
+            document.getElementById('oPoints').innerHTML = result;
+            alert("Player 'O' has won the game!");
         }
     }
     else
     {
-        //nothing happens
+        alert("It's a draw!");
     }
 }
 var button = document.getElementById("reset");
