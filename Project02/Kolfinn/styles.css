@@ -1,7 +1,6 @@
 h1{
     font-family: 'Bevan';
     text-align: center;
-    color:purple;
 }
 h2{
     text-align: center;
@@ -11,6 +10,7 @@ h2{
 }
 .o{
     color: red;
+    border-color: red;
 }
 #table{
     font-size: larger;
@@ -51,7 +51,7 @@ h2{
         top: 46%;
         margin-left: 5%;
         border-style: solid;
-        border-color: purple;}
+    }
 }
 @media screen and (max-width: 580px)
 {

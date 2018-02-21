@@ -1,4 +1,6 @@
 var whosTurn = document.getElementById('turn');
+var header = document.getElementById('h1');
+var border = document.getElementById('table');
 var O = "O, it's your turn!"
 var X = "X, it's your turn!"
 var lastTurn = 'O';
@@ -14,7 +16,7 @@ function points()
         var result = xPoints + 1;
         document.getElementById('xPoints').value = result;
         document.getElementById('xPoints').innerHTML = result;
-        alert("Player 'X' has won the game!");
+        document.getElementById('turn').textContent = "Player 'X' has won the game!";
     }
     else
     {
@@ -22,12 +24,14 @@ function points()
         var result = oPoints + 1;
         document.getElementById('oPoints').value = result;
         document.getElementById('oPoints').innerHTML = result;
-        alert("Player 'O' has won the game!");
+        document.getElementById('turn').textContent = "Player 'O' has won the game!";
     }
 }
-var button = document.getElementById("reset");
+var again = document.getElementById("playAgain");
+again.addEventListener('click', resetBoard);
 
-button.addEventListener('click', reset);
+var resetting = document.getElementById("reset");
+resetting.addEventListener('click', reset);
 
 function reset()
 {
@@ -42,7 +46,7 @@ function reset()
 var table = document.getElementById("ttt");
 
 table.addEventListener("click", function(e) {
-    if (e.target && e.target.nodeName == "TD") {
+    if (e.target && e.target.nodeName == "TD" && win === false) {
         if(e.target.textContent === "") {
             if (lastTurn === 'X') {
                 e.target.textContent = 'O';
@@ -56,8 +60,7 @@ table.addEventListener("click", function(e) {
 
             if(draw === true)
             {
-                alert("It's a draw!");
-                resetBoard();
+                document.getElementById('turn').textContent = "It's a draw!";
             }
             else if(win === false)
             {
@@ -66,14 +69,13 @@ table.addEventListener("click", function(e) {
             else
             {
                 points();
-                resetBoard();
-                win = false;
             }
         }
     }
 });
 function turnText()
 {
+    whosTurn = document.getElementById('turn');
     if(lastTurn === 'X'){
         whosTurn.classList.toggle('o');
         document.getElementById('turn').textContent = X;
@@ -84,6 +86,8 @@ function turnText()
         document.getElementById('turn').textContent = O;
         lastTurn = 'X';
     }
+    header.classList.toggle('o');
+    border.classList.toggle('o');
 }
 
 var s1;
@@ -158,17 +162,13 @@ function checkAll()
 
 function resetBoard()
 {
-    console.log("resetBoard");
-    console.log(lastTurn);
     var square;
     for(i = 0; i < 9; i++)
     {
         document.getElementsByTagName('td')[i].textContent = "";
     }
     if(lastTurn !== 'O' && turnCount > 0){
-        whosTurn.classList.toggle('o');
-        document.getElementById('turn').textContent = X;
-        lastTurn = 'O';
+        turnText();
     }
     turnCount = 0;
     draw = false;
